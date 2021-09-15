@@ -15,7 +15,7 @@ public class CameraFollowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y + 10, followTarget.transform.position.z - 15);
+        transform.position = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y + 20, followTarget.transform.position.z - 5);
         transform.LookAt(followTarget.transform.position);
     }
 }
