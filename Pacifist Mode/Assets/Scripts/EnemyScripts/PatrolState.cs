@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class PatrolState: State
 {
-    public PatrolState(ChasePlayer chasePlayer) : base(chasePlayer) { }
+    public PatrolState(StateMachine stateMachine) : base(stateMachine) { }
 
     private Vector3 destinationPoint;
 
     public override void CheckTransitions() 
     {
-        if (chasePlayer.CheckIfInRange("Player"))
+        if (stateMachine.CheckIfInRange("Player", 10f))
         {
-            chasePlayer.SetState(new ChaseState(chasePlayer));
+            stateMachine.SetState(new ChaseState(stateMachine));
         }
     }
 
     public override void Act()
     {
-        if (chasePlayer.agent == null || chasePlayer.agent.remainingDistance > 0.5)
+        if (stateMachine.agent == null || stateMachine.agent.remainingDistance > 0.5)
         {
-            destinationPoint = new Vector3 (chasePlayer.GetNavPoint().position.x, chasePlayer.GetNavPoint().position.y, chasePlayer.GetNavPoint().position.z);
-            chasePlayer.agent.SetDestination(destinationPoint);
-        } else if (chasePlayer.agent.remainingDistance < 0.5)
+            destinationPoint = new Vector3 (stateMachine.GetNavPoint().position.x, stateMachine.GetNavPoint().position.y, stateMachine.GetNavPoint().position.z);
+            stateMachine.agent.SetDestination(destinationPoint);
+        } else if (stateMachine.agent.remainingDistance < 0.5)
         {
-            chasePlayer.GetNextNavPoint();
-            destinationPoint = new Vector3 (chasePlayer.GetNavPoint().position.x, chasePlayer.GetNavPoint().position.y, chasePlayer.GetNavPoint().position.z);
-            chasePlayer.agent.SetDestination(destinationPoint);
+            stateMachine.GetNextNavPoint();
+            destinationPoint = new Vector3 (stateMachine.GetNavPoint().position.x, stateMachine.GetNavPoint().position.y, stateMachine.GetNavPoint().position.z);
+            stateMachine.agent.SetDestination(destinationPoint);
         }
     }
 
     public override void OnStateEnter()
     {
-        destinationPoint = new Vector3 (chasePlayer.GetNavPoint().position.x, chasePlayer.GetNavPoint().position.y, chasePlayer.GetNavPoint().position.z);
-        chasePlayer.agent.SetDestination(destinationPoint);
-        if (chasePlayer.agent != null)
+        destinationPoint = new Vector3 (stateMachine.GetNavPoint().position.x, stateMachine.GetNavPoint().position.y, stateMachine.GetNavPoint().position.z);
+        stateMachine.agent.SetDestination(destinationPoint);
+        if (stateMachine.agent != null)
         {
-            chasePlayer.agent.speed = 5f;
+            stateMachine.agent.speed = 5f;
         }
-        chasePlayer.ChangeColor(Color.blue);
+        stateMachine.ChangeColor(Color.blue);
     }
 }

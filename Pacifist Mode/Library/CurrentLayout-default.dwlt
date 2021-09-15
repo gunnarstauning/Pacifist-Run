@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 678, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 677, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 118
+  controlID: 16
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 55
+  controlID: 46
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 221}
   m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 56
+  controlID: 47
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -265,8 +265,8 @@ MonoBehaviour:
     y: 0
     width: 1383
     height: 648
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -365,20 +365,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scripts/EnemyScripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scripts/EnemyScripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\coolk\Documents\GitHub\Pacifist-Run\Pacifist Mode
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7e370000
-    m_LastClickedID: 14206
-    m_ExpandedIDs: 00000000783700007c3700007e37000000ca9a3b
+    m_SelectedIDs: 76380000
+    m_LastClickedID: 14454
+    m_ExpandedIDs: 000000006a3800007438000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -406,7 +406,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000
+    m_ExpandedIDs: 000000006a380000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -450,7 +450,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 5}
+      m_ClientGUIView: {fileID: 3}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -529,9 +529,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 7e370000
+      m_SelectedIDs: 30360000
       m_LastClickedID: 0
-      m_ExpandedIDs: 8a5bffff8e5bffffa06bffffbe91ffffdefafffffc360000
+      m_ExpandedIDs: 36faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -591,9 +591,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.162072, y: -12.160526, z: 20.221645}
+    m_Target: {x: 27.093164, y: 7.467199, z: -2.4992447}
     speed: 2
-    m_Value: {x: 6.162072, y: -12.160526, z: 20.221645}
+    m_Value: {x: 27.093164, y: 7.467199, z: -2.4992447}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -639,13 +639,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.4432779, y: 0.0139800655, z: -0.006912517, w: -0.89625514}
+    m_Target: {x: -0.2738929, y: -0.049898442, z: 0.01421421, w: -0.9604014}
     speed: 2
-    m_Value: {x: -0.4432753, y: 0.0139799835, z: -0.0069124764, w: -0.8962499}
+    m_Value: {x: -0.27388194, y: -0.049896445, z: 0.014213641, w: -0.960363}
   m_Size:
-    m_Target: 37.537304
+    m_Target: 30.247772
     speed: 2
-    m_Value: 37.537304
+    m_Value: 30.247772
   m_Ortho:
     m_Target: 0
     speed: 2

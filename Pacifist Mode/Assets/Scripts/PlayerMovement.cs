@@ -4,107 +4,31 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool movingForward;
-    public bool movingBackward;
-    public bool movingLeft;
-    public bool movingRight;
+    public float speed = 10f;
 
-    public float acceleration = 2f;
-    public float friction = 0.95f;
-    public float maxSpeed = 25f;
-
-    public float zVelocity;
-    public float xVelocity;
+    private CharacterController characterController;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("w"))
-        {
-            movingForward = true;
-        }
-        if (Input.GetKeyDown("s"))
-        {
-            movingBackward = true;
-        }
-        if (Input.GetKeyDown("a"))
-        {
-            movingLeft = true;
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            movingRight = true;
-        }
+        Vector3 vel = transform.forward * Input.GetAxis("Vertical");
+        vel += transform.right * Input.GetAxis("Horizontal");
+        // if (vel.magnitude > 1)
+        // {
+        //     vel.Normalize();
+        // }
 
-        if (Input.GetKeyUp("w"))
-        {
-            movingForward = false;
-        }
-        if (Input.GetKeyUp("s"))
-        {
-            movingBackward = false;
-        }
-        if (Input.GetKeyUp("a"))
-        {
-            movingLeft = false;
-        }
-        if (Input.GetKeyUp("d"))
-        {
-            movingRight = false;
-        }
+        //vel.Normalize();
 
-        if (movingForward == true)
-        {
-            zVelocity = zVelocity + acceleration;
-        }
-        if (movingBackward == true)
-        {
-            zVelocity = zVelocity - acceleration;
-        }
-        if (movingLeft == true)
-        {
-            xVelocity = xVelocity - acceleration;
-        }
-        if (movingRight == true)
-        {
-            xVelocity = xVelocity + acceleration;
-        }
-
-        zVelocity = zVelocity * friction;
-        xVelocity = xVelocity * friction;
-
-        if (zVelocity > maxSpeed)
-        {
-            zVelocity = maxSpeed;
-        }
-        if (zVelocity < -maxSpeed)
-        {
-            zVelocity = -maxSpeed;
-        }
-        if (xVelocity > maxSpeed)
-        {
-            xVelocity = maxSpeed;
-        }
-        if (xVelocity < -maxSpeed)
-        {
-            xVelocity = -maxSpeed;
-        }
-
-        if (xVelocity < 0.01 && xVelocity > 0 || xVelocity > -0.01 && xVelocity < 0)
-        {
-            xVelocity = 0;
-        }
-        if (zVelocity < 0.01 && zVelocity > 0 || zVelocity > -0.01 && zVelocity < 0)
-        {
-            zVelocity =0;
-        }
-
-        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + xVelocity, transform.position.y, transform.position.z + zVelocity), Time.deltaTime);
+        vel *= speed;
+ 
+        characterController.SimpleMove(vel);
+        Debug.Log(characterController.velocity);
     }
 }

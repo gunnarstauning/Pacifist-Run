@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class State
 {
-    protected ChasePlayer chasePlayer;
+    protected StateMachine stateMachine;
     //constructor
 
-    public State(ChasePlayer chasePlayer)
+    public State(StateMachine stateMachine)
     {
-        this.chasePlayer = chasePlayer;
+        this.stateMachine = stateMachine;
     }
 
     public abstract void CheckTransitions();

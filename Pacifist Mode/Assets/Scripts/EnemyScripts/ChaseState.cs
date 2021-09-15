@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class ChaseState : State
 {
-    public ChaseState(ChasePlayer chasePlayer) : base(chasePlayer) { }
+    public ChaseState(StateMachine stateMachine) : base(stateMachine) { }
 
     private Vector3 destinationPoint;
 
     public override void CheckTransitions() 
     {
-        if (!chasePlayer.CheckIfInRange("Player"))
+        if (!stateMachine.CheckIfInRange("Player", 10f))
         {
-            chasePlayer.SetState(new PatrolState(chasePlayer));
+            stateMachine.SetState(new PatrolState(stateMachine));
         }
     }
     public override void Act() 
     {
-        if (chasePlayer.enemyToChase != null)
+        if (stateMachine.enemyToChase != null)
         {
-            destinationPoint = new Vector3 (chasePlayer.enemyToChase.transform.position.x, chasePlayer.enemyToChase.transform.position.y, chasePlayer.enemyToChase.transform.position.z);
-            chasePlayer.agent.SetDestination(destinationPoint);
+            destinationPoint = new Vector3 (stateMachine.enemyToChase.transform.position.x, stateMachine.enemyToChase.transform.position.y, stateMachine.enemyToChase.transform.position.z);
+            stateMachine.agent.SetDestination(destinationPoint);
         }
     }
 
     public override void OnStateEnter()
     {
-        if (chasePlayer.agent != null)
+        if (stateMachine.agent != null)
         {
-            chasePlayer.agent.speed = 6f;
+            stateMachine.agent.speed = 6f;
         }
-        chasePlayer.ChangeColor(Color.red);
+        stateMachine.ChangeColor(Color.red);
     }
 }
