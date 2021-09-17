@@ -26,7 +26,13 @@ public class StateMachine : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         childrenRend = GetComponentsInChildren<Renderer>();
         agent = this.GetComponent<NavMeshAgent>();
-        SetState(new PatrolState(this));
+        if (this.tag == "enemy1")
+        {
+            SetState(new ShootPatrolState(this));
+        } else if (this.tag == "enemy2") 
+        {
+            SetState(new ShootPatrolState(this));
+        }
     }
 
     // Update is called once per frame
