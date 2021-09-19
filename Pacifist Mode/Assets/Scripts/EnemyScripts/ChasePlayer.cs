@@ -20,6 +20,8 @@ public class ChasePlayer : MonoBehaviour
 
     public GameObject player;
     public NavMeshAgent agent;
+    public Animator anim;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class ChasePlayer : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         childrenRend = GetComponentsInChildren<Renderer>();
         agent = this.GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         SetState(new PatrolState(this));
     }
 
@@ -35,6 +38,15 @@ public class ChasePlayer : MonoBehaviour
     {
         currentState.CheckTransitions();
         currentState.Act();
+        if(agent.speed <= .5f){
+            anim.SetFloat("Speed", 0f);
+        }
+        else if(agent.speed > .5f && agent.speed < 8f){
+            anim.SetFloat("Speed", .5f);
+        }
+        else{
+            anim.SetFloat("Speed", 1f);
+        }
         //agent.SetDestination(player.transform.position);
     }
 
@@ -58,8 +70,14 @@ public class ChasePlayer : MonoBehaviour
                 if (Vector3.Distance(g.transform.position, transform.position) < detectionRange)
                 {
                     enemyToChase = g;
+                    agent.speed = 12f;
+                    anim.SetFloat("Speed", .5f);
+                    if(Vector3.Distance(enemyToChase.transform.position, transform.position) < 2){
+                        agent.speed = 0f;
+                    }
                     return true;
                 }
+                
             }
         }
         return false;

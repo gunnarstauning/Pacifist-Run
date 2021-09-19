@@ -8,13 +8,15 @@ public class Enemy : MonoBehaviour
     public Transform target;
     public GameObject runner;
     
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
+    //public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         runner = GameObject.FindWithTag("enemy1");
         agent = GetComponent<NavMeshAgent>();
+        //anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,11 @@ public class Enemy : MonoBehaviour
         if (target != null)
         {
             agent.destination = target.position;
+            //anim.SetFloat("Speed",.5f);
+        }
+        else
+        {
+            //anim.SetFloat("Speed",0f);
         }
     }
 }
