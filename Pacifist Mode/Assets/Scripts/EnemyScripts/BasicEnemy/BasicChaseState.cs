@@ -12,7 +12,13 @@ public class BasicChaseState : State
     {
         if (!stateMachine.CheckIfInRange("Player", 10f))
         {
-            stateMachine.SetState(new PatrolState(stateMachine));
+            if (!stateMachine.CheckIfInRange("BasicEnemy", 10f))
+            {
+                if (!stateMachine.CheckIfInRange("ShootEnemy", 10f))
+                {
+                    stateMachine.SetState(new BasicPatrolState(stateMachine));
+                }
+            }
         }
     }
     public override void Act() 

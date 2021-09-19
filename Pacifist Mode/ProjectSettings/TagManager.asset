@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - enemy1
   - navPoint
+  - ShootEnemy
+  - BasicEnemy
   layers:
   - Default
   - TransparentFX

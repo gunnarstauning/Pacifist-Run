@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolState: State
+public class BasicPatrolState: State
 {
-    public PatrolState(StateMachine stateMachine) : base(stateMachine) { }
+    public BasicPatrolState(StateMachine stateMachine) : base(stateMachine) { }
 
     private Vector3 destinationPoint;
 
     public override void CheckTransitions() 
     {
         if (stateMachine.CheckIfInRange("Player", 10f))
+        {
+            stateMachine.SetState(new BasicChaseState(stateMachine));
+        } else if (stateMachine.CheckIfInRange("BasicEnemy", 10f))
+        {
+            stateMachine.SetState(new BasicChaseState(stateMachine));
+        } else if (stateMachine.CheckIfInRange("ShootEnemy", 10f))
         {
             stateMachine.SetState(new BasicChaseState(stateMachine));
         }

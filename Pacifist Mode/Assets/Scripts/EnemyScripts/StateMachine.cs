@@ -26,10 +26,10 @@ public class StateMachine : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         childrenRend = GetComponentsInChildren<Renderer>();
         agent = this.GetComponent<NavMeshAgent>();
-        if (this.tag == "enemy1")
+        if (this.tag == "BasicEnemy")
         {
-            SetState(new ShootPatrolState(this));
-        } else if (this.tag == "enemy2") 
+            SetState(new BasicPatrolState(this));
+        } else if (this.tag == "ShootEnemy") 
         {
             SetState(new ShootPatrolState(this));
         }
@@ -60,6 +60,10 @@ public class StateMachine : MonoBehaviour
         {
             foreach (GameObject g in enemies)
             {
+                if (g.transform.IsChildOf(this.transform))
+                {
+                    continue;
+                }
                 if (Vector3.Distance(g.transform.position, transform.position) < range)
                 {
                     enemyToChase = g;

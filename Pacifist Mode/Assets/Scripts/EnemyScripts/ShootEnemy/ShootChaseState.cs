@@ -10,7 +10,7 @@ public class ShootChaseState : State
 
     public override void CheckTransitions() 
     {
-        if (!stateMachine.CheckIfInRange("Player", 10f))
+        if (!stateMachine.CheckIfInRange("Player", 15f))
         {
             stateMachine.SetState(new ShootPatrolState(stateMachine));
         }
