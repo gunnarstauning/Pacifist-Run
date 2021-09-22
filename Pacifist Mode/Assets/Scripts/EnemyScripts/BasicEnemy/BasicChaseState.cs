@@ -52,29 +52,7 @@ public class BasicChaseState : State
         {
             destinationPoint = new Vector3(stateMachine.enemyToChase.transform.position.x, stateMachine.enemyToChase.transform.position.y, stateMachine.enemyToChase.transform.position.z);
             stateMachine.agent.SetDestination(destinationPoint);
-        }
-<<<<<<< HEAD
-
-        if (stateMachine.CheckIfInHitRange("Player", 4))
-        {
-            stateMachine.anim.SetBool("Hit", true);
-            stateMachine.agent.speed = 0.1f;
-        }
-        else if (stateMachine.CheckIfInHitRange("ShootEnemy", 4))
-        {
-            stateMachine.anim.SetBool("Hit", true);
-            stateMachine.agent.speed = 0.1f;
-        }
-        else
-        {
-            stateMachine.anim.SetBool("Hit", false);
-            stateMachine.agent.speed = 7f;
-        }
-        
-=======
-		
-		
->>>>>>> e2cc4164da064f261b83a1d100795bd2a2e0b507
+        }		
     }
 
     public override void OnStateEnter()
