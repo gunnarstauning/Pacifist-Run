@@ -6,11 +6,11 @@ public class roomSwitch : MonoBehaviour
 {
     public Transform[] views;
     public float transitionSpeed;
-    Transform currentView;
+    private Transform currentView;
 
     void Start()
     {
-
+        currentView = views[0];
     }
 
     void Update()
@@ -40,11 +40,8 @@ public class roomSwitch : MonoBehaviour
             currentView = views[4];
         }
 
-    }
+        
 
-
-    void LateUpdate()
-    {
         //Lerp position
         transform.position = Vector3.Lerp(transform.position, currentView.position, Time.deltaTime * transitionSpeed);
 
@@ -55,5 +52,25 @@ public class roomSwitch : MonoBehaviour
 
         transform.eulerAngles = currentAngle;
 
+    }
+
+    public void changeRoom(string triggerName)
+    {
+        Debug.Log("Triggered");
+        switch (triggerName)
+        {
+            case "Trigger1":
+                currentView = views[0];
+                break;
+            case "Trigger2":
+                currentView = views[1];
+                break;
+            case "Trigger3":
+                currentView = views[2];
+                break;
+            default:
+                Debug.Log("What");
+                break;
+        }
     }
 }
