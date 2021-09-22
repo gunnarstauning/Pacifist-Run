@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class StateMachine : MonoBehaviour
 {
+    public LayerMask layerMask;
+
     public GameObject[] navPoints;
     public int navPointNum;
 
@@ -66,8 +68,17 @@ public class StateMachine : MonoBehaviour
                 }
                 if (Vector3.Distance(g.transform.position, transform.position) < range)
                 {
-                    enemyToChase = g;
-                    return true;
+                    float dist = Vector3.Distance(transform.position, g.transform.position);
+                    Debug.DrawRay(transform.position, g.transform.position - transform.position);
+
+                    RaycastHit hit;
+                    Ray ray = new Ray(transform.position, g.transform.position - transform.position);
+
+                    if (!Physics.Raycast(ray, out hit, dist, layerMask, QueryTriggerInteraction.Ignore))
+                    {
+                        enemyToChase = g;
+                        return true;
+                    }
                 }
             }
         }

@@ -10,11 +10,18 @@ public class ShootChaseState : State
 
     public override void CheckTransitions() 
     {
-        if (!stateMachine.CheckIfInRange("Player", 15f))
+        if (!stateMachine.CheckIfInRange("Player", 25f))
         {
             stateMachine.SetState(new ShootPatrolState(stateMachine));
+        } else if (stateMachine.CheckIfInRange("Player", 8f))
+        {
+            stateMachine.SetState(new ShootRunningState(stateMachine));
+        } else if (stateMachine.CheckIfInRange("Player", 15f))
+        {
+            stateMachine.SetState(new ShootFiringState(stateMachine));
         }
     }
+
     public override void Act() 
     {
         if (stateMachine.enemyToChase != null)
