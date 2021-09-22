@@ -20,7 +20,10 @@ public class StateMachine : MonoBehaviour
     public State currentState;
 
     public GameObject player;
+    public GameObject bulletPrefab;
+    public Transform launchPosition;
     public NavMeshAgent agent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +88,16 @@ public class StateMachine : MonoBehaviour
         return false;
     }
 
+    private void OnTriggerEnter (Collider other)
+    {
+        Bullet bullet = other.gameObject.GetComponent<Bullet>();
+
+        if (bullet != null)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void SetState(State state)
     {
         if(currentState != null)
@@ -98,6 +111,19 @@ public class StateMachine : MonoBehaviour
         {
             currentState.OnStateEnter();
         }
+    }
+
+    public void fireBullet() 
+    {
+        Rigidbody bullet = createBullet();
+        bullet.velocity = transform.forward * 20;
+    }
+
+    public Rigidbody createBullet() 
+    {
+        GameObject bullet = Instantiate(bulletPrefab) as GameObject;
+        bullet.transform.position = launchPosition.position;
+        return bullet.GetComponent<Rigidbody>();
     }
 
     public void ChangeColor(Color color)
