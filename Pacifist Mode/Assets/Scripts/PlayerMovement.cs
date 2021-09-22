@@ -16,10 +16,16 @@ public class PlayerMovement : MonoBehaviour
     public float zVelocity;
     public float xVelocity;
 
+    public GameObject mainCamera;
+    public Transform[] views;
+    public float transitionSpeed;
+    private Transform currentView;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        roomSwitch RoomSwitch = mainCamera.GetComponent<roomSwitch>();
+        currentView = views[0];
     }
 
     // Update is called once per frame
@@ -106,5 +112,42 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + xVelocity, transform.position.y, transform.position.z + zVelocity), Time.deltaTime);
+
+        //Camera Movement
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, currentView.transform.position, Time.deltaTime * transitionSpeed);
+
+        //Camera Angle
+        Vector3 currentAngle = new Vector3(
+        Mathf.LerpAngle(mainCamera.transform.rotation.eulerAngles.x, currentView.transform.rotation.eulerAngles.x, Time.deltaTime * transitionSpeed),
+        Mathf.LerpAngle(mainCamera.transform.rotation.eulerAngles.y, currentView.transform.rotation.eulerAngles.y, Time.deltaTime * transitionSpeed),
+        Mathf.LerpAngle(mainCamera.transform.rotation.eulerAngles.z, currentView.transform.rotation.eulerAngles.z, Time.deltaTime * transitionSpeed));
+
+        mainCamera.transform.eulerAngles = currentAngle;
+    }
+    //Change to check if its a room trigger
+    public void OnTriggerEnter(Collider other)
+    {
+        string triggerName = other.name;
+        changeRoom(triggerName);
+    }
+
+    private void changeRoom(string triggerName)
+    {
+        switch (triggerName)
+        {
+            case "Trigger1":
+                currentView = views[0];
+                break;
+            case "Trigger2":
+                currentView = views[1];
+                break;
+            case "Trigger3":
+                currentView = views[2];
+                break;
+            default:
+                //currentView = views[0];
+                Debug.Log("ERROR");
+                break;
+        }
     }
 }
