@@ -43,7 +43,7 @@ public class StateMachine : MonoBehaviour
         currentState.CheckTransitions();
         currentState.Act();
         if(agent.speed <= .5f){
-            anim.SetFloat("Speed", 0f);
+            //anim.SetFloat("Speed", 0f);
         }
         else if(agent.speed > .5f && agent.speed < 6f){
             anim.SetFloat("Speed", .5f);
@@ -78,7 +78,6 @@ public class StateMachine : MonoBehaviour
                 if (Vector3.Distance(g.transform.position, transform.position) < range)
                 {
                     enemyToChase = g;
-                    
                     return true;
                 }
             }
