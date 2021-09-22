@@ -85,6 +85,28 @@ public class StateMachine : MonoBehaviour
         return false;
     }
 
+    public bool CheckIfInHitRange(string tag, float range)
+    {
+        enemies = GameObject.FindGameObjectsWithTag(tag);
+        if (enemies != null)
+        {
+            foreach (GameObject g in enemies)
+            {
+                if (g.transform.IsChildOf(this.transform))
+                {
+                    continue;
+                }
+                if (Vector3.Distance(g.transform.position, transform.position) < range)
+                {
+                    enemyToChase = g;
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void SetState(State state)
     {
         if(currentState != null)
