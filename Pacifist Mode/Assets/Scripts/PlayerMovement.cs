@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float acceleration = 2f;
     public float friction = 0.95f;
-    public float maxSpeed = 25f;
+    public float maxSpeed = 7.5f;
 
     public float zVelocity;
     public float xVelocity;
@@ -21,11 +21,15 @@ public class PlayerMovement : MonoBehaviour
     public float transitionSpeed;
     private Transform currentView;
 
+    public Animator playerAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         roomSwitch RoomSwitch = mainCamera.GetComponent<roomSwitch>();
         currentView = views[0];
+
+        playerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -111,7 +115,18 @@ public class PlayerMovement : MonoBehaviour
             zVelocity =0;
         }
 
+        Vector3 movement = new Vector3(xVelocity, 0.0f, zVelocity);
+        transform.rotation = Quaternion.LookRotation(movement);
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + xVelocity, transform.position.y, transform.position.z + zVelocity), Time.deltaTime);
+
+        if(xVelocity != 0 || zVelocity != 0)
+        {
+            playerAnim.SetFloat("Speed", 1f);
+        }
+        else
+        {
+            playerAnim.SetFloat("Speed", 0f);
+        }
 
         //Camera Movement
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, currentView.transform.position, Time.deltaTime * transitionSpeed);
@@ -143,6 +158,9 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "Trigger3":
                 currentView = views[2];
+                break;
+            case "Trigger4":
+                currentView = views[3];
                 break;
             default:
                 //currentView = views[0];
