@@ -149,6 +149,7 @@ public class StateMachine : MonoBehaviour
     public void fireBullet()
     {
         Rigidbody bullet = createBullet();
+        Debug.Log("Created Bullet");
         bullet.velocity = transform.forward * bulletSpeed;
     }
 

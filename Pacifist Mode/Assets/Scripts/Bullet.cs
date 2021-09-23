@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     {
         if(other != this)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         
     }
