@@ -115,10 +115,13 @@ public class PlayerMovement : MonoBehaviour
             zVelocity =0;
         }
 
+        //Character Rotation
         Vector3 movement = new Vector3(xVelocity, 0.0f, zVelocity);
         transform.rotation = Quaternion.LookRotation(movement);
+        //Character Movement
         transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + xVelocity, transform.position.y, transform.position.z + zVelocity), Time.deltaTime);
 
+        //Character Run/Walk Animation
         if(xVelocity != 0 || zVelocity != 0)
         {
             playerAnim.SetFloat("Speed", 1f);
@@ -161,6 +164,21 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "Trigger4":
                 currentView = views[3];
+                break;
+            case "Trigger5":
+                currentView = views[4];
+                break;
+            case "Trigger6":
+                currentView = views[5];
+                break;
+            case "Trigger7":
+                currentView = views[6];
+                break;
+            case "Trigger8":
+                currentView = views[7];
+                break;
+            case "Trigger9":
+                currentView = views[8];
                 break;
             default:
                 //currentView = views[0];
