@@ -8,6 +8,7 @@ TagManager:
   - navPoint
   - BasicEnemy
   - ShootEnemy
+  - Environment
   layers:
   - Default
   - TransparentFX
