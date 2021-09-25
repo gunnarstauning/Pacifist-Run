@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     public float friction = 0.95f;
     public float maxSpeed = 7.5f;
 
+    //PlayerHP
+    public float health = 10f;
+    public List<GameObject> hpObjects = new List<GameObject>();
+
     public float zVelocity;
     public float xVelocity;
 
@@ -141,12 +145,110 @@ public class PlayerMovement : MonoBehaviour
         Mathf.LerpAngle(mainCamera.transform.rotation.eulerAngles.z, currentView.transform.rotation.eulerAngles.z, Time.deltaTime * transitionSpeed));
 
         mainCamera.transform.eulerAngles = currentAngle;
+
+        switch (health)
+        {
+            case 9:
+                Destroy(hpObjects[9]);
+                break;
+            case 8:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                break;
+            case 7:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                break;
+            case 6:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                break;
+            case 5:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                break;
+            case 4:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                Destroy(hpObjects[4]);
+                break;
+            case 3:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                Destroy(hpObjects[4]);
+                Destroy(hpObjects[3]);
+                break;
+            case 2:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                Destroy(hpObjects[4]);
+                Destroy(hpObjects[3]);
+                Destroy(hpObjects[2]);
+                break;
+            case 1:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                Destroy(hpObjects[4]);
+                Destroy(hpObjects[3]);
+                Destroy(hpObjects[2]);
+                Destroy(hpObjects[1]);
+                break;
+            case 0:
+                Destroy(hpObjects[9]);
+                Destroy(hpObjects[8]);
+                Destroy(hpObjects[7]);
+                Destroy(hpObjects[6]);
+                Destroy(hpObjects[5]);
+                Destroy(hpObjects[4]);
+                Destroy(hpObjects[3]);
+                Destroy(hpObjects[2]);
+                Destroy(hpObjects[1]);
+                Destroy(hpObjects[0]);
+                break;
+        }
+        //health detection
+        if(health <= 0)
+        {
+            Die();
+        }
+        Debug.Log(health);
     }
+    public void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     //Change to check if its a room trigger
     public void OnTriggerEnter(Collider other)
     {
         string triggerName = other.name;
         changeRoom(triggerName);
+        if(other.gameObject.tag == "Bullet")
+        {
+            health -= 3;
+        }
+    }
+    public void takeDamage(float f)
+    {
+        health -= f;
     }
 
     private void changeRoom(string triggerName)

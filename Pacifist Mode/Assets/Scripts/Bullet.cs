@@ -47,6 +47,7 @@ public class Bullet : MonoBehaviour
                     if (other.gameObject.tag == "Player")
                     {
                         Debug.Log("Player Took a Hit!");
+                        
                     }
                     else
                     {

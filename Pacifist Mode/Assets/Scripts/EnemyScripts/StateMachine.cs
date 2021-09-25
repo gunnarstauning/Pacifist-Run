@@ -22,11 +22,20 @@ public class StateMachine : MonoBehaviour
     public GameObject player;
     public NavMeshAgent agent;
     public Animator anim;
+    public PlayerMovement playerScript;
+
+    //Enemy Stats
+    private float meleeDamage = 5f;
 
     //Bullet Info
     public GameObject bulletPrefab;
     public Transform launchPosition;
     public float bulletSpeed = 10;
+
+    //Punch Delay
+    public bool ableToPunch = false;
+    public int punchDelay = 0;
+    public int punchDelayMax = 600;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +69,17 @@ public class StateMachine : MonoBehaviour
             anim.SetFloat("Speed", 1f);
         }
         //agent.SetDestination(player.transform.position);
+        if (ableToPunch)
+        {
+            if (punchDelay > 400)
+            {
+                HitPlayer();
+            }
+            else
+            {
+                punchDelay++;
+            }
+        }
     }
 
     public void GetNextNavPoint() 
@@ -101,6 +121,17 @@ public class StateMachine : MonoBehaviour
         }
         return false;
     }
+    public void DestroyEnemy()
+    {
+        Destroy(enemyToChase.gameObject);
+    }
+    public void HitPlayer()
+    {
+        playerScript.takeDamage(meleeDamage);
+        ableToPunch = false;
+        punchDelay = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Bullet bullet = other.gameObject.GetComponent<Bullet>();

@@ -9,6 +9,7 @@ TagManager:
   - BasicEnemy
   - ShootEnemy
   - Environment
+  - Bullet
   layers:
   - Default
   - TransparentFX
