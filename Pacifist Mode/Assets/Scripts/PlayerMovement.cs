@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -233,7 +234,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Die()
     {
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        SceneManager.LoadScene(0);
     }
 
     //Change to check if its a room trigger
