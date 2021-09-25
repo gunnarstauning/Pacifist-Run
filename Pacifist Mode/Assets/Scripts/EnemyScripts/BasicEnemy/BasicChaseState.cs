@@ -23,27 +23,37 @@ public class BasicChaseState : State
     }
     public override void Act() 
     {
-	
-	
-	if (stateMachine.CheckIfInRange("Player", 4f))
+	    if (stateMachine.CheckIfInRange("Player", 4f))
 		{
-			stateMachine.anim.SetBool("Hit", true);
+            Quaternion rotation = Quaternion.LookRotation(stateMachine.enemyToChase.transform.position - stateMachine.agent.transform.position);
+            stateMachine.agent.transform.rotation = Quaternion.Lerp(stateMachine.agent.transform.rotation, rotation, Time.deltaTime * 10.0f);
+            stateMachine.anim.SetBool("Hit", true);
+            stateMachine.ableToPunch = true;
 			stateMachine.agent.speed = 0f;
 		}
 		else if (stateMachine.CheckIfInRange("BasicEnemy", 4f))
 		{
 			stateMachine.anim.SetBool("Hit", true);
-			stateMachine.agent.speed = 0f;
+            if (stateMachine.anim.GetBool("Hit") && stateMachine.anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+            {
+                stateMachine.DestroyEnemy();
+            }
+            stateMachine.agent.speed = 0f;
 		}
 		else if (stateMachine.CheckIfInRange("ShootEnemy", 4f))
 		{
 			stateMachine.anim.SetBool("Hit", true);
-			stateMachine.agent.speed = 0f;
+            if (stateMachine.anim.GetBool("Hit") && stateMachine.anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+            {
+                stateMachine.DestroyEnemy();
+            }
+            stateMachine.agent.speed = 0f;
 		}
 		else
 		{
-		stateMachine.anim.SetBool("Hit", false);
-		stateMachine.agent.speed = 7f;
+            stateMachine.ableToPunch = false;
+            stateMachine.anim.SetBool("Hit", false);
+		    stateMachine.agent.speed = 7f;
 		}
 		
 		

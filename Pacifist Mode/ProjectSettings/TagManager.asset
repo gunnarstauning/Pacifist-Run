@@ -8,6 +8,8 @@ TagManager:
   - navPoint
   - BasicEnemy
   - ShootEnemy
+  - Environment
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -17,11 +19,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bullet
+  - Enemy
+  - NavPoints
+  - Enviroment
+  - Triggers
   - 
   - 
   - 

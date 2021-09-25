@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class StateMachine : MonoBehaviour
 {
+    public LayerMask layerMask;
+
     public GameObject[] navPoints;
     public int navPointNum;
 
@@ -20,6 +22,21 @@ public class StateMachine : MonoBehaviour
     public GameObject player;
     public NavMeshAgent agent;
     public Animator anim;
+    public PlayerMovement playerScript;
+
+    //Enemy Stats
+    private float meleeDamage = 5f;
+
+    //Bullet Info
+    public GameObject bulletPrefab;
+    public Transform launchPosition;
+    public float bulletSpeed = 10;
+
+    //Punch Delay
+    public bool ableToPunch = false;
+    public int punchDelay = 0;
+    public int punchDelayMax = 600;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +69,17 @@ public class StateMachine : MonoBehaviour
             anim.SetFloat("Speed", 1f);
         }
         //agent.SetDestination(player.transform.position);
+        if (ableToPunch)
+        {
+            if (punchDelay > 400)
+            {
+                HitPlayer();
+            }
+            else
+            {
+                punchDelay++;
+            }
+        }
     }
 
     public void GetNextNavPoint() 
@@ -77,14 +105,42 @@ public class StateMachine : MonoBehaviour
                 }
                 if (Vector3.Distance(g.transform.position, transform.position) < range)
                 {
-                    enemyToChase = g;
-                    return true;
+                    float dist = Vector3.Distance(transform.position, g.transform.position);
+                    Debug.DrawRay(transform.position, g.transform.position - transform.position);
+
+                    RaycastHit hit;
+                    Ray ray = new Ray(transform.position, g.transform.position - transform.position);
+
+                    if (!Physics.Raycast(ray, out hit, dist, layerMask, QueryTriggerInteraction.Ignore))
+                    {
+                        enemyToChase = g;
+                        return true;
+                    }
                 }
             }
         }
         return false;
     }
+    public void DestroyEnemy()
+    {
+        Destroy(enemyToChase.gameObject);
+    }
+    public void HitPlayer()
+    {
+        playerScript.takeDamage(meleeDamage);
+        ableToPunch = false;
+        punchDelay = 0;
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Bullet bullet = other.gameObject.GetComponent<Bullet>();
+
+        if (bullet != null)
+        {
+            //Destroy(gameObject);
+        }
+    }
     public bool CheckIfInHitRange(string tag, float range)
     {
         enemies = GameObject.FindGameObjectsWithTag(tag);
@@ -121,7 +177,21 @@ public class StateMachine : MonoBehaviour
             currentState.OnStateEnter();
         }
     }
+    public void fireBullet()
+    {
+        Rigidbody bullet = createBullet();
+        Debug.Log("Created Bullet");
+        bullet.velocity = transform.forward * bulletSpeed;
+    }
 
+    public Rigidbody createBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab) as GameObject;
+        bullet.transform.position = launchPosition.position;
+        //Vector3 bulletRotation = new Vector3(bullet.transform.position.x, 0.0f, bullet.transform.position.y);
+        bullet.transform.rotation = Quaternion.LookRotation(enemyToChase.transform.position - agent.transform.position);
+        return bullet.GetComponent<Rigidbody>();
+    }
     public void ChangeColor(Color color)
     {
         foreach(Renderer r in childrenRend)
